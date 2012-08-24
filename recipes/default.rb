@@ -3,7 +3,7 @@ include_recipe "build-essential"
 
 ruby_installed_check = "ruby -v | grep #{ node[:ruby][:version].gsub( '-', '' ) }"
 
-%w( wget zlib1g-dev libssl-dev libffi-dev libxml2-dev libncurses5-dev libreadline5-dev ).each do |pkg|
+%w( wget zlib1g-dev libssl-dev libffi-dev libxml2-dev libncurses5-dev libreadline5-dev libyaml ).each do |pkg|
   package pkg do
     action :install
   end
@@ -29,9 +29,9 @@ end
   end
 end
 
-%w( ohai chef ).each do |g|
-  gem_package g do
-    action :install
-    gem_binary('/usr/local/bin/gem')
-  end
+# install gems
+gem_package "chef" do
+  action :install
+  version "10.12.0"
+  gem_binary('/usr/local/bin/gem')
 end
