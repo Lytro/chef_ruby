@@ -30,8 +30,9 @@ end
 end
 
 # install gems
-gem_package "chef" do
-  action :install
-  version "10.12.0"
-  gem_binary('/usr/local/bin/gem')
+{"chef" => "10.12.0", "ohai" => "6.14.0"}.each do |g,v|
+  gem_package g do
+    version v
+    gem_binary('/usr/local/bin/gem')
+  end
 end
