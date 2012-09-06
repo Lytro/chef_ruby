@@ -3,7 +3,7 @@ include_recipe "build-essential"
 
 ruby_installed_check = "ruby -v | grep #{ node[:ruby][:version].gsub( '-', '' ) }"
 
-%w( wget zlib1g-dev libssl-dev libffi-dev libxml2-dev libncurses5-dev libreadline5-dev libyaml-0-2 libyaml-dev ).each do |pkg|
+%w( wget zlib1g-dev libssl-dev libffi-dev libxml2-dev libncurses-dev libreadline-dev libyaml-0-2 libyaml-dev ).each do |pkg|
   package pkg do
     action :install
   end
