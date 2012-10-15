@@ -30,11 +30,11 @@ end
 end
 
 # add gemrc file
-file "/etc/gemrc" do
+file "/usr/local/etc/gemrc" do
   action :create
   owner "root"
   group "root"
-  content "install: --no-rdoc --no-ri\nupdate:  --no-rdoc --no-ri"
+  content "install: --no-rdoc --no-ri\nupdate:  --no-rdoc --no-ri\n"
   mode 0644
 end
 
