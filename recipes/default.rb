@@ -29,9 +29,18 @@ end
   end
 end
 
+# add gemrc file
+file "/etc/gemrc" do
+  action :create
+  owner "root"
+  group "root"
+  content "install: --no-rdoc --no-ri\nupdate:  --no-rdoc --no-ri"
+  mode 0644
+end
+
 # install gems
-# TODO abstract this into an attribute
-{"chef" => "10.14.4", "ohai" => "6.14.0", "bundler" => "1.0.21"}.each do |g,v|
+# TODO abstract this into an attribute?
+{"chef" => "10.14.4", "ohai" => "6.14.0"}.each do |g,v|
   gem_package g do
     version v
     gem_binary('/usr/local/bin/gem')
