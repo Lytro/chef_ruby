@@ -17,11 +17,17 @@ describe 'chef-ruby1.9::default' do
   end
 
   it "downloads ruby" do
-    chef_run.should create_remote_file "#{Chef::Config[:file_cache_path]}/ruby-#{runner.node[:ruby][:version]}.tar.bz2"
+    chef_run.should create_remote_file "#{Chef::Config[:file_cache_path]}/ruby-#{chef_run.node[:ruby][:version]}.tar.bz2"
   end
 
   it "creates a gemrc" do
     chef_run.should create_file_with_content '/usr/local/etc/gemrc', "install: --no-rdoc --no-ri\nupdate:  --no-rdoc --no-ri\n"
     chef_run.file('/usr/local/etc/gemrc').should be_owned_by('root', 'root')
+  end
+
+  it "installs default gems" do
+    chef_run.node[:gems].each do |gem|
+      chef_run.should install_gem_package_at_version gem[0], gem[1][:version]
+    end
   end
 end
