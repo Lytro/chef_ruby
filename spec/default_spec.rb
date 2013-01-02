@@ -1,8 +1,8 @@
 require 'chefspec'
 
-describe 'chef-ruby1.9::default' do
+describe 'chef-ruby::default' do
   let(:runner) { ChefSpec::ChefRunner.new }
-  let(:chef_run) { runner.converge 'chef-ruby1.9::default' }
+  let(:chef_run) { runner.converge 'chef-ruby::default' }
 
   before do
     Chef::Recipe.any_instance.stub(:load_recipe).and_return do |arg|
