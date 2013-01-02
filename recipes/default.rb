@@ -10,16 +10,16 @@ ruby_installed_check = "ruby -v | grep #{ node[:ruby][:version].gsub( '-', '' ) 
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/ruby-#{node[:ruby][:version]}.tar.bz2" do
-  source "ftp://ftp.ruby-lang.org/pub/ruby/1.9/ruby-#{node[:ruby][:version]}.tar.bz2"
+  source "http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-#{node[:ruby][:version]}.tar.bz2"
   not_if ruby_installed_check
 end
 
-bash "unpack #{ node[:ruby][:version] } and build" do
+bash "unpack ruby-#{ node[:ruby][:version] }.tar.bz2 and build" do
   user "root"
   cwd Chef::Config[:file_cache_path]
   code <<-EOH
-    tar -vxjf ruby-#{ node[:ruby][:version] }.tar.bz2 }
-    cd ruby-#{ node[:ruby][:version] }.tar.bz2 } && ./configure && make && make install
+    tar -xjf ruby-#{ node[:ruby][:version] }.tar.bz2
+    cd ruby-#{ node[:ruby][:version] } && ./configure && make && make install
   EOH
   not_if ruby_installed_check
 end
