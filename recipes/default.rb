@@ -53,5 +53,4 @@ end
 
 ohai "reload" do
   action :reload
-  notifies :create, "ruby_block[reload_ruby]", :immediately
 end
