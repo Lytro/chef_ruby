@@ -50,3 +50,8 @@ node[:gems].each do |gem|
     gem_binary '/usr/local/bin/gem'
   end
 end
+
+ohai "reload" do
+  action :reload
+  notifies :reload, "ruby_block[reload_ruby]", :immediately
+end
