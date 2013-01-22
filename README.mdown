@@ -1,4 +1,4 @@
-# chef-ruby1.9
+# chef-ruby
 
 Installs Ruby 1.9.x from source.
 
@@ -22,11 +22,29 @@ RVM in conjunction with Chef is shit.
 
 ## Recipes
 
-* `ruby1.9`: installs Ruby from source.
+* `default`: installs Ruby from source.
+
+
+## Usage
+When setting up a system for the first time, Ohai will profile it and then store the ruby directory as `/opt/chef/embedded/lib/ruby`.
+This attribute (normally referenced in cookbooks as `languages[:ruby][:gems_dir]`) does not get reset automatically when a new Ruby is
+installed. The default recipe sends a notification to certain ruby blocks that can be used to reload attributes that depend on the Ruby
+location. Just add this to any recipe that uses the attribute `languages[:ruby][:gems_dir]`:
+```ruby
+ruby_block "reload_ruby" do
+  block do
+    node.load_attribute_by_short_filename('<filename of attributes, eg default>', '<name of cookbook that contains the attributes>')
+  end
+
+  action :nothing # gets triggered via notifications if another cookbook installs a ruby
+end
+```
 
 
 ## Legal
 
-* Written by [Carlo Zottmann](http://github.com/carlo/)
+This cookbook was originally written by [Carlo Zottmann](http://github.com/carlo/) but he seems to have stopped maintaining it. Now it is maintained
+by Lytro.
+* Written by [Anuj Biyani](https://github.com/anujbiyani) for [Lytro](https://github.com/lytro)
 * Liability in case of anything: definitely not me.
 * License: [WTFPL](http://en.wikipedia.org/wiki/WTFPL).
