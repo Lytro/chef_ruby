@@ -36,7 +36,8 @@ ruby_block "reload_ruby" do
     node.load_attribute_by_short_filename('<filename of attributes, eg default>', '<name of cookbook that contains the attributes>')
   end
 
-  action :nothing # gets triggered via notifications if another cookbook installs a ruby
+  action :nothing
+  subscribes :create, "ohai[reload]", :immediately
 end
 ```
 

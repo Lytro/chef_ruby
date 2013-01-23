@@ -44,13 +44,6 @@ file "/usr/local/etc/gemrc" do
   content "install: --no-rdoc --no-ri\nupdate:  --no-rdoc --no-ri\n"
 end
 
-node[:gems].each do |gem|
-  gem_package gem[0] do
-    version gem[1][:version]
-    gem_binary '/usr/local/bin/gem'
-  end
-end
-
 ohai "reload" do
   action :reload
 end

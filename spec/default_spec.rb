@@ -24,10 +24,4 @@ describe 'chef-ruby::default' do
     chef_run.should create_file_with_content '/usr/local/etc/gemrc', "install: --no-rdoc --no-ri\nupdate:  --no-rdoc --no-ri\n"
     chef_run.file('/usr/local/etc/gemrc').should be_owned_by('root', 'root')
   end
-
-  it "installs default gems" do
-    chef_run.node[:gems].each do |gem|
-      chef_run.should install_gem_package_at_version gem[0], gem[1][:version]
-    end
-  end
 end
