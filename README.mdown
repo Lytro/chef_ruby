@@ -17,7 +17,7 @@ RVM in conjunction with Chef is shit.
 ## Attributes
 
 * `ruby/version`: string containing the ruby version you want to install.
-  Default: "1.9.2-p180"
+  Default: "1.9.3-p194"
 
 
 ## Recipes
