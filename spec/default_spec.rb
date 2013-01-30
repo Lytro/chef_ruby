@@ -17,7 +17,7 @@ describe 'chef_ruby::default' do
   end
 
   it "downloads ruby" do
-    chef_run.should create_remote_file "#{Chef::Config[:file_cache_path]}/ruby-#{chef_run.node[:ruby][:version]}.tar.bz2"
+    chef_run.should create_remote_file "#{Chef::Config[:file_cache_path]}/ruby-#{chef_run.node[:chef_ruby][:version]}.tar.bz2"
   end
 
   it "creates a gemrc" do
