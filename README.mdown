@@ -1,4 +1,4 @@
-# chef-ruby
+# chef_ruby
 
 Installs Ruby 1.9.x from source.
 
