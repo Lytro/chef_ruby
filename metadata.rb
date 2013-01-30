@@ -1,5 +1,5 @@
 maintainer        "Lytro"
-maintainer_email  "webops@lytro.com"
+maintainer_email  "cookbooks@lytro.com"
 license           "WTFPL"
 description       "Installs Ruby 1.9 from source"
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.mdown'))
