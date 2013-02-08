@@ -44,6 +44,21 @@ file "/usr/local/etc/gemrc" do
   content "install: --no-rdoc --no-ri\nupdate:  --no-rdoc --no-ri\n"
 end
 
+rubygems_installed_check = "gem -v | grep #{node[:chef_ruby][:rubygems][:version]}"
+
+remote_file "#{Chef::Config[:file_cache_path]}/rubygems-#{node[:chef_ruby][:rubygems][:version]}.tgz" do
+  source "http://production.cf.rubygems.org/rubygems/rubygems-#{node[:chef_ruby][:rubygems][:version]}.tgz"
+
+  not_if rubygems_installed_check
+end
+
+execute "extract and install rubygems" do
+  cwd Chef::Config[:file_cache_path]
+  command "tar zxf rubygems-#{node[:chef_ruby][:rubygems][:version]}.tgz && cd rubygems-#{node[:chef_ruby][:rubygems][:version]} && ruby setup.rb --no-format-executable"
+
+  not_if rubygems_installed_check
+end
+
 ohai "reload" do
   action :reload
 end
