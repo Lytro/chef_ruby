@@ -24,4 +24,8 @@ describe 'chef_ruby::default' do
     chef_run.should create_file_with_content '/usr/local/etc/gemrc', "install: --no-rdoc --no-ri\nupdate:  --no-rdoc --no-ri\n"
     chef_run.file('/usr/local/etc/gemrc').should be_owned_by('root', 'root')
   end
+
+  it "downloads rubygems" do
+    chef_run.should create_remote_file "#{Chef::Config[:file_cache_path]}/rubygems-#{chef_run.node[:chef_ruby][:rubygems][:version]}.tgz"
+  end
 end
