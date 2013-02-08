@@ -17,6 +17,7 @@ RVM in conjunction with Chef is shit.
 ## Attributes
 
 * `default[:chef_ruby][:version] = "1.9.3-p194"`: string containing the ruby version you want to install.
+* `default[:chef_ruby][:rubygems][:version] = "1.8.25"`: string containing the rubygems version you want to install.
 
 
 ## Recipes
