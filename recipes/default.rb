@@ -62,3 +62,5 @@ end
 ohai "reload" do
   action :reload
 end
+
+gem_package "bundler"
