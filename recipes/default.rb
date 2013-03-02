@@ -59,8 +59,8 @@ execute "extract and install rubygems" do
   not_if rubygems_installed_check
 end
 
+gem_package "bundler"
+
 ohai "reload" do
   action :reload
 end
-
-gem_package "bundler"
