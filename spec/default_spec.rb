@@ -28,4 +28,8 @@ describe 'chef_ruby::default' do
   it "downloads rubygems" do
     chef_run.should create_remote_file "#{Chef::Config[:file_cache_path]}/rubygems-#{chef_run.node[:chef_ruby][:rubygems][:version]}.tgz"
   end
+
+  it "gem installs bundler" do
+    chef_run.should install_gem_package 'bundler'
+  end
 end
