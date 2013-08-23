@@ -1,3 +1,4 @@
+name              'chef_ruby'
 maintainer        "Lytro"
 maintainer_email  "cookbooks@lytro.com"
 license           "WTFPL"
