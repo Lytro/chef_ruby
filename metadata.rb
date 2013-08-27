@@ -11,4 +11,4 @@ supports          "ubuntu"
   depends d
 end
 
-recipe            "default", "Installs Ruby 1.9 from source."
+recipe            "chef_ruby::default", "Installs Ruby 1.9 from source."
