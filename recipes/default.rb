@@ -10,7 +10,8 @@ ruby_installed_check = "ruby -v | grep #{ node[:chef_ruby][:version].gsub( '-', 
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/ruby-#{node[:chef_ruby][:version]}.tar.bz2" do
-  source "http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-#{node[:chef_ruby][:version]}.tar.bz2"
+  source "http://ftp.ruby-lang.org/pub/ruby/#{node[:chef_ruby][:version].match(/[0-9]+\.[0-9]+/).to_s}/ruby-#{node[:chef_ruby][:version]}.tar.bz2"
+  checksum node[:chef_ruby][:checksum]
   not_if ruby_installed_check
 end
 
@@ -18,14 +19,14 @@ bash "unpack ruby-#{ node[:chef_ruby][:version] }.tar.bz2 and build" do
   user "root"
   cwd Chef::Config[:file_cache_path]
   code <<-EOH
-    tar -xjf ruby-#{ node[:chef_ruby][:version] }.tar.bz2
-    cd ruby-#{ node[:chef_ruby][:version] } && ./configure && make && make install
+    tar --no-same-owner -xjf ruby-#{ node[:chef_ruby][:version] }.tar.bz2
+    cd ruby-#{ node[:chef_ruby][:version] } && ./configure --prefix=#{ node[:chef_ruby][:prefix] } --disable-install-doc && make #{ node[:chef_ruby][:make_opts] } && make install
   EOH
   not_if ruby_installed_check
 end
 
 %w( openssl readline ).each do |ext|
-  bash "configure & make #{ node[:chef_ruby][:version] } #{ext} support" do
+  bash "configure --prefix=#{ node[:chef_ruby][:prefix] } & make #{ node[:chef_ruby][:version] } #{ext} support" do
     user "root"
     cwd "#{Chef::Config[:file_cache_path]}/ruby-#{ node[:chef_ruby][:version] }/ext/#{ext}"
     code <<-EOH
@@ -35,7 +36,9 @@ end
   end
 end
 
-file "/usr/local/etc/gemrc" do
+gemrc_prefix = node[:chef_ruby][:prefix]
+gemrc_prefix = '' if gemrc_prefix == '/usr'
+file "#{gemrc_prefix}/etc/gemrc" do
   action :create
   owner "root"
   group "root"
@@ -48,13 +51,14 @@ rubygems_installed_check = "gem -v | grep #{node[:chef_ruby][:rubygems][:version
 
 remote_file "#{Chef::Config[:file_cache_path]}/rubygems-#{node[:chef_ruby][:rubygems][:version]}.tgz" do
   source "http://production.cf.rubygems.org/rubygems/rubygems-#{node[:chef_ruby][:rubygems][:version]}.tgz"
+  checksum node[:chef_ruby][:rubygems][:checksum]
 
   not_if rubygems_installed_check
 end
 
 execute "extract and install rubygems" do
   cwd Chef::Config[:file_cache_path]
-  command "tar zxf rubygems-#{node[:chef_ruby][:rubygems][:version]}.tgz && cd rubygems-#{node[:chef_ruby][:rubygems][:version]} && ruby setup.rb --no-format-executable"
+  command "tar --no-same-owner -zxf rubygems-#{node[:chef_ruby][:rubygems][:version]}.tgz && cd rubygems-#{node[:chef_ruby][:rubygems][:version]} && ruby setup.rb --no-format-executable"
 
   not_if rubygems_installed_check
 end
