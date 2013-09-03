@@ -19,8 +19,8 @@ bash "unpack ruby-#{ node[:chef_ruby][:version] }.tar.bz2 and build" do
   user "root"
   cwd Chef::Config[:file_cache_path]
   code <<-EOH
-    tar -xjf ruby-#{ node[:chef_ruby][:version] }.tar.bz2
-    cd ruby-#{ node[:chef_ruby][:version] } && ./configure && make && make install
+    tar --no-same-owner -xjf ruby-#{ node[:chef_ruby][:version] }.tar.bz2
+    cd ruby-#{ node[:chef_ruby][:version] } && ./configure --prefix=#{ node[:chef_ruby][:prefix] } --disable-install-doc && make #{ node[:chef_ruby][:make_opts] } && make install
   EOH
   not_if ruby_installed_check
 end
@@ -56,7 +56,7 @@ end
 
 execute "extract and install rubygems" do
   cwd Chef::Config[:file_cache_path]
-  command "tar zxf rubygems-#{node[:chef_ruby][:rubygems][:version]}.tgz && cd rubygems-#{node[:chef_ruby][:rubygems][:version]} && ruby setup.rb --no-format-executable"
+  command "tar --no-same-owner -zxf rubygems-#{node[:chef_ruby][:rubygems][:version]}.tgz && cd rubygems-#{node[:chef_ruby][:rubygems][:version]} && ruby setup.rb --no-format-executable"
 
   not_if rubygems_installed_check
 end
