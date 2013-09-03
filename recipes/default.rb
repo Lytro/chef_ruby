@@ -10,7 +10,7 @@ ruby_installed_check = "ruby -v | grep #{ node[:chef_ruby][:version].gsub( '-', 
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/ruby-#{node[:chef_ruby][:version]}.tar.bz2" do
-  source "http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-#{node[:chef_ruby][:version]}.tar.bz2"
+  source "http://ftp.ruby-lang.org/pub/ruby/#{node[:chef_ruby][:version].match(/[0-9]+\.[0-9]+/).to_s}/ruby-#{node[:chef_ruby][:version]}.tar.bz2"
   checksum node[:chef_ruby][:checksum]
   not_if ruby_installed_check
 end
