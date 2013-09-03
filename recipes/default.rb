@@ -36,7 +36,9 @@ end
   end
 end
 
-file "/usr/local/etc/gemrc" do
+gemrc_prefix = node[:chef_ruby][:prefix]
+gemrc_prefix = '' if gemrc_prefix == '/usr'
+file "#{gemrc_prefix}/etc/gemrc" do
   action :create
   owner "root"
   group "root"
