@@ -20,6 +20,8 @@ RVM in conjunction with Chef is shit.
 * `default[:chef_ruby][:rubygems][:version] = "2.0.6"`: string containing the rubygems version you want to install.
 * `default[:chef_ruby][:checksum] = '3e`...`d3'`: checksum of the Ruby tarball.
 * `default[:chef_ruby][:rubygems][:checksum] = '36`...`39'`: checksum of the RubyGems tarball.
+* `default[:chef_ruby][:prefix] = '/usr'`: configure prefix path for Ruby.
+* `default[:chef_ruby][:make_opts] = '-j10'`: make options for building Ruby.
 
 
 ## Recipes
