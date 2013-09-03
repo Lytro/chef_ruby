@@ -11,6 +11,7 @@ end
 
 remote_file "#{Chef::Config[:file_cache_path]}/ruby-#{node[:chef_ruby][:version]}.tar.bz2" do
   source "http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-#{node[:chef_ruby][:version]}.tar.bz2"
+  checksum node[:chef_ruby][:checksum]
   not_if ruby_installed_check
 end
 
@@ -48,6 +49,7 @@ rubygems_installed_check = "gem -v | grep #{node[:chef_ruby][:rubygems][:version
 
 remote_file "#{Chef::Config[:file_cache_path]}/rubygems-#{node[:chef_ruby][:rubygems][:version]}.tgz" do
   source "http://production.cf.rubygems.org/rubygems/rubygems-#{node[:chef_ruby][:rubygems][:version]}.tgz"
+  checksum node[:chef_ruby][:rubygems][:checksum]
 
   not_if rubygems_installed_check
 end
