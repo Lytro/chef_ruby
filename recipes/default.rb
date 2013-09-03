@@ -26,7 +26,7 @@ bash "unpack ruby-#{ node[:chef_ruby][:version] }.tar.bz2 and build" do
 end
 
 %w( openssl readline ).each do |ext|
-  bash "configure & make #{ node[:chef_ruby][:version] } #{ext} support" do
+  bash "configure --prefix=#{ node[:chef_ruby][:prefix] } & make #{ node[:chef_ruby][:version] } #{ext} support" do
     user "root"
     cwd "#{Chef::Config[:file_cache_path]}/ruby-#{ node[:chef_ruby][:version] }/ext/#{ext}"
     code <<-EOH
