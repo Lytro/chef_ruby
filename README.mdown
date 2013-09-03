@@ -23,6 +23,11 @@ RVM in conjunction with Chef is shit.
 * `default[:chef_ruby][:prefix] = '/usr'`: configure prefix path for Ruby.
 * `default[:chef_ruby][:make_opts] = '-j10'`: make options for building Ruby.
 
+You can update the tarball checksums on OS X using `shasum -a 256` followed by the path of the tarballs. Or, alternatively, use Curl as follows.
+
+	curl http://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz | shasum -a 256
+	curl http://http://production.cf.rubygems.org/rubygems/rubygems-2.0.6.tgz | shasum -a 256
+
 
 ## Recipes
 
