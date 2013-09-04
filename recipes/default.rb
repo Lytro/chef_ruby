@@ -20,7 +20,7 @@ bash "unpack ruby-#{ node[:chef_ruby][:version] }.tar.bz2 and build" do
   cwd Chef::Config[:file_cache_path]
   code <<-EOH
     tar --no-same-owner -xjf ruby-#{ node[:chef_ruby][:version] }.tar.bz2
-    cd ruby-#{ node[:chef_ruby][:version] } && ./configure --prefix=#{ node[:chef_ruby][:prefix] } --disable-install-doc && make #{ node[:chef_ruby][:make_opts] } && make install
+    cd ruby-#{ node[:chef_ruby][:version] } && ./configure --prefix=#{ node[:chef_ruby][:prefix] } --sysconfdir=#{ node[:chef_ruby][:sysconfdir] } --disable-install-doc && make #{ node[:chef_ruby][:make_opts] } && make install
   EOH
   not_if ruby_installed_check
 end
@@ -36,9 +36,7 @@ end
   end
 end
 
-gemrc_prefix = node[:chef_ruby][:prefix]
-gemrc_prefix = '' if gemrc_prefix == '/usr'
-file "#{gemrc_prefix}/etc/gemrc" do
+file "#{node[:chef_ruby][:sysconfdir]}/gemrc" do
   action :create
   owner "root"
   group "root"
