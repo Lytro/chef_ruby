@@ -36,9 +36,7 @@ end
   end
 end
 
-gemrc_prefix = node[:chef_ruby][:prefix]
-gemrc_prefix = '' if gemrc_prefix == '/usr'
-file "#{gemrc_prefix}/etc/gemrc" do
+file "#{node[:chef_ruby][:sysconfdir]}/gemrc" do
   action :create
   owner "root"
   group "root"
