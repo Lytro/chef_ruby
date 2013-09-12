@@ -10,7 +10,7 @@ describe 'chef_ruby::default' do
     end
   end
 
-  %w( wget zlib1g-dev libssl-dev libffi-dev libxml2-dev libncurses-dev libreadline-dev libyaml-0-2 libyaml-dev ).each do |package|
+  %w( wget zlib1g-dev libssl-dev libffi-dev libxml2-dev libncurses-dev libreadline-dev libyaml-0-2 libyaml-dev ruby-dev ).each do |package|
     it "installs package #{package}" do
       chef_run.should install_package package
     end
