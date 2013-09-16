@@ -1,6 +1,6 @@
 # chef_ruby
 
-Installs Ruby 1.9.x from source.
+Installs Ruby 1.9.x or 2.0.x from source.
 
 
 ## Acknowledgements
@@ -16,8 +16,17 @@ RVM in conjunction with Chef is shit.
 
 ## Attributes
 
-* `default[:chef_ruby][:version] = "1.9.3-p194"`: string containing the ruby version you want to install.
-* `default[:chef_ruby][:rubygems][:version] = "1.8.25"`: string containing the rubygems version you want to install.
+* `default[:chef_ruby][:version] = "2.0.0-p247"`: string containing the ruby version you want to install.
+* `default[:chef_ruby][:rubygems][:version] = "2.0.6"`: string containing the rubygems version you want to install.
+* `default[:chef_ruby][:checksum] = '3e...d3'`: checksum of the Ruby tarball.
+* `default[:chef_ruby][:rubygems][:checksum] = '36...39'`: checksum of the RubyGems tarball.
+* `default[:chef_ruby][:prefix] = '/usr'`: configure prefix path for Ruby.
+* `default[:chef_ruby][:make_opts] = '-j10'`: make options for building Ruby.
+
+You can update the tarball checksums on OS X using `shasum -a 256` followed by the path of the tarballs. Or, alternatively, use Curl as follows.
+
+	curl http://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz | shasum -a 256
+	curl http://http://production.cf.rubygems.org/rubygems/rubygems-2.0.6.tgz | shasum -a 256
 
 
 ## Recipes

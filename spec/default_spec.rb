@@ -21,8 +21,8 @@ describe 'chef_ruby::default' do
   end
 
   it "creates a gemrc" do
-    chef_run.should create_file_with_content '/usr/local/etc/gemrc', "install: --no-rdoc --no-ri\nupdate:  --no-rdoc --no-ri\n"
-    chef_run.file('/usr/local/etc/gemrc').should be_owned_by('root', 'root')
+    chef_run.should create_file_with_content '/etc/gemrc', "install: --no-rdoc --no-ri\nupdate:  --no-rdoc --no-ri\n"
+    chef_run.file('/etc/gemrc').should be_owned_by('root', 'root')
   end
 
   it "downloads rubygems" do
