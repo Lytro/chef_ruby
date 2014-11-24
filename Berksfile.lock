@@ -1,0 +1,13 @@
+DEPENDENCIES
+  apt
+  build-essential
+  chef_ruby
+    path: .
+    metadata: true
+
+GRAPH
+  apt (2.6.0)
+  build-essential (2.1.3)
+  chef_ruby (2.3.0)
+    apt (>= 0.0.0)
+    build-essential (>= 0.0.0)
